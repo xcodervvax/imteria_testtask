@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { logout } from '@/composables/useAuthApi';
+import { defineAsyncComponent } from "vue";
+import { useUserRouter } from '@/composables/useUserRouter';
+import { useAuthStore } from "@/stores/auth";
 
-const router = useRouter();
+const Exit = defineAsyncComponent(() => import('../components/Exit.vue'));
+
+const { goToLogin } = useUserRouter();
+const auth = useAuthStore();
 
 const handleLogout = async () => {
   try {
-    await logout();
+    await auth.logout();
     localStorage.removeItem('token');
-    router.push('/login');
+    await goToLogin();
   } catch (e) {
     console.error(e);
   }
@@ -17,27 +21,30 @@ const handleLogout = async () => {
 
 <template>
   <header class="app-header">
-    <div class="logo">Daily Grow</div>
-
-    <el-button type="danger" @click="handleLogout">
-      Выйти
+    <el-button class="logout-btn" @click="handleLogout">
+      <Exit />
     </el-button>
   </header>
 </template>
 
-<style scoped>
+<style>
 .app-header {
   height: 60px;
   background: white;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0 24px;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 16px;
+.logout-btn {
+  border: none;
+  outline: none;
+}
+
+.logout-btn:hover {
+  background-color: transparent;
+  color: transparent;
 }
 </style>

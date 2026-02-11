@@ -30,6 +30,7 @@ const handleSave = async () => {
 
     <div class="link-wrapper">
       <el-input
+          class="ydx-input"
           v-model="yandexUrl"
           placeholder="Вставьте ссылку на Яндекс карточку"
           size="large"
@@ -50,77 +51,5 @@ const handleSave = async () => {
 </template>
 
 <style>
-@import '../assets/styles/style.css';
-
-.settings-wrapper {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  font-family: Mulish, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 20px;
-
-  width: 100%;
-
-  display: inline-block;
-
-  margin-bottom: 20px;
-
-  color: var(--color-dark-blue);
-  text-align: start;
-}
-
-.settings-tooltip {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  margin-bottom: 10px;
-}
-
-.settings-tooltip__text {
-  font-family: Mulish, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-
-  display: inline-block;
-
-  margin-right: 10px;
-
-  color: var(--color-gray1);
-}
-
-.settings-tooltip__link {
-  font-family: Mulish, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-
-  color: var(--color-gray1);
-  letter-spacing: 0px;
-}
-
-.el-input__inner {
-  font-family: Mulish, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-
-  height: 26px;
-
-  border-radius: 6px;
-  color: var(--color-gray1);
-  letter-spacing: 0px;
-}
-
-.link-wrapper {
-  width: 480px;
-}
-
-.save-button {
-  margin-top: 16px;
-}
+@import '../assets/styles/account-settings.css';
 </style>

@@ -18,6 +18,7 @@ export function useUserRouter() {
         }
 
         await router.push(to);
+        ui.stopLoading();
     };
 
     const goToLogin = () => navigate({ name: 'login' });

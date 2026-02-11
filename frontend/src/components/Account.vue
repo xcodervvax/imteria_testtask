@@ -8,9 +8,6 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
 
 <template>
   <div class="account-layout">
-
-    <AppHeader />
-
     <div class="account-body">
 
       <!-- Левый блок -->
@@ -41,6 +38,7 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
 
       <!-- Правый блок -->
       <main class="content">
+        <AppHeader />
         <AccountSettings />
       </main>
 

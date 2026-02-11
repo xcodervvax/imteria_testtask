@@ -92,6 +92,7 @@ const submit = async (): Promise<void> => {
           native-type="submit"
           :loading="auth.loading"
           block
+          class="login-btn"
       >
         {{ loginTitles.enterBtn }}
       </el-button>
