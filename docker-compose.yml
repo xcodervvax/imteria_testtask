@@ -1,19 +1,20 @@
 services:
+
   nginx:
     image: nginx:1.25
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./backend:/var/www/backend
       - ./frontend/dist:/var/www/frontend
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - backend
-    environment:
-      APP_ENV: ${APP_ENV:-production}
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: laravel_backend
     volumes:
       - ./backend:/var/www/backend
@@ -21,20 +22,18 @@ services:
     depends_on:
       - postgres
       - redis
-    environment:
-      APP_ENV: ${APP_ENV:-production}
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: vue_frontend
     volumes:
-      - ./frontend:/app
+      - ./frontend:/var/www/frontend
+    working_dir: /var/www/frontend
     ports:
       - "9134:5173"
-    environment:
-      APP_ENV: ${APP_ENV:-production}
-    command: >
-      sh -c "if [ \"$APP_ENV\" = 'development' ]; then npm run dev -- --host 0.0.0.0; else npm run build && tail -f /dev/null; fi"
+    command: npm run dev -- --host 0.0.0.0
 
   postgres:
     image: postgres:15

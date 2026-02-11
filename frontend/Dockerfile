@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /var/www/frontend
 COPY package*.json ./
 RUN npm install
 COPY . .
