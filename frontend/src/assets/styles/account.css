@@ -15,9 +15,9 @@
 }
 
 .sidebar {
-    background: #f3f4f6;
+    background-color: var(--color-white1);
     padding: 24px;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid var(--color-gray3);
 }
 
 .account-name {
@@ -59,4 +59,24 @@
     line-height: 20px;
 
     color: var(--color-gray2)
+}
+
+.left-menu {
+    background-color: transparent;
+    border-right: none;
+}
+
+.left-menu > .el-menu-item {
+    font-family: Mulish, sans-serif;
+    font-size: 12px;
+    height: 16px;
+
+    margin-bottom: 8px;
+    padding: 10px 0;
+}
+
+.left-menu > .el-menu-item.is-active {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    color: var(--color-gray4);
 }

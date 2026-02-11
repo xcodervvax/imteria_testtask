@@ -21,8 +21,11 @@
   --color-gray: #6C757D;
   --color-gray1: #788397;
   --color-gray2: #363740;
+  --color-gray3: #e5e7eb;
+  --color-gray4: #303133;
   --color-dark-blue: #252733;
   --color-white: #fff;
+  --color-white1: #f3f4f6;
 }
 
 a {

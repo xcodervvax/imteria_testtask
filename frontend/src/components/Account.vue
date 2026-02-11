@@ -25,7 +25,7 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
           <span class="reviews-container__text">Отзывы</span>
         </div>
 
-        <el-menu default-active="settings" class="menu">
+        <el-menu default-active="settings" class="menu left-menu">
           <el-menu-item index="reviews">
             Отзывы
           </el-menu-item>
@@ -46,6 +46,6 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
   </div>
 </template>
 
-<style scoped>
+<style>
 @import '../assets/styles/account.css';
 </style>

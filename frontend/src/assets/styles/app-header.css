@@ -1,0 +1,21 @@
+@import '@/assets/styles/style.css';
+
+.app-header {
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid var(--color-gray3);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+}
+
+.logout-btn {
+    border: none;
+    outline: none;
+}
+
+.logout-btn:hover {
+    background-color: transparent;
+    color: transparent;
+}

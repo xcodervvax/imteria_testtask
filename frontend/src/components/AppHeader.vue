@@ -28,23 +28,5 @@ const handleLogout = async () => {
 </template>
 
 <style>
-.app-header {
-  height: 60px;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 24px;
-}
-
-.logout-btn {
-  border: none;
-  outline: none;
-}
-
-.logout-btn:hover {
-  background-color: transparent;
-  color: transparent;
-}
+@import '../assets/styles/app-header.css';
 </style>

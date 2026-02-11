@@ -32,7 +32,7 @@ const handleSave = async () => {
       <el-input
           class="ydx-input"
           v-model="yandexUrl"
-          placeholder="Вставьте ссылку на Яндекс карточку"
+          placeholder="Вставьте ссылку на Яндекс карту"
           size="large"
           clearable
       />
