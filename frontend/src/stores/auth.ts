@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 
 import api from '@/lib/axios';
 import { useAuthApi } from '@/composables/useAuthApi';
+import { useUiStore } from '@/stores/ui';
 
 import type { AuthResponse, LoginCredentials, User } from '@/types/auth';
 
@@ -40,6 +41,24 @@ export const useAuthStore = defineStore('auth', () => {
         }
     };
 
+    const logout = async () => {
+        const ui = useUiStore();
+        ui.stopLoading();
+        token.value = null;
+        user.value = null;
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('token_expires_at');
+        delete api.defaults.headers.common.Authorization;
+
+        try {
+            const authApi = useAuthApi();
+            await authApi.logout();
+        } catch (e) {
+            //
+        }
+    };
+
     return {
         token,
         user,
@@ -47,5 +66,6 @@ export const useAuthStore = defineStore('auth', () => {
         error,
         isAuthenticated,
         login,
+        logout,
     };
 });

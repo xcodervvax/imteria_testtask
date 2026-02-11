@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
 const routes = [
     {
@@ -7,9 +8,29 @@ const routes = [
         component: () => import('@/components/Login.vue'),
         meta: { guest: true },
     },
+    {
+        path: '/account',
+        name: 'account',
+        component: () => import('@/pages/AccountPage.vue'),
+        meta: { requiresAuth: true },
+    },
 ];
 
 export const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to) => {
+    const auth = useAuthStore();
+
+    // если маршрут требует авторизацию
+    if (to.meta.requiresAuth && !auth.isAuthenticated) {
+        return { name: 'login' };
+    }
+
+    // если залогинен — не пускаем на login
+    if (to.meta.guest && auth.isAuthenticated) {
+        return { name: 'account' };
+    }
 });
