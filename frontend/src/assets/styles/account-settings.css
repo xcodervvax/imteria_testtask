@@ -70,6 +70,13 @@
 
 .link-wrapper {
     width: 480px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.link-wrapper > .el-form-item {
+    margin-bottom: 0;
 }
 
 .save-button {
@@ -77,4 +84,8 @@
     width: 128px;
 
     margin-top: 16px;
+}
+
+.save-button:focus-visible {
+    outline: none;
 }
