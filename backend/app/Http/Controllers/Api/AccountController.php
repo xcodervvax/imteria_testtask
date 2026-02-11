@@ -48,4 +48,11 @@ class AccountController extends Controller
             'org_id' => $orgId
         ]);
     }
+
+    private function extractOrgId(string $url): ?string
+    {
+        preg_match('/\/org\/[^\/]+\/(\d+)/', $url, $matches);
+
+        return $matches[1] ?? null;
+    }
 }
