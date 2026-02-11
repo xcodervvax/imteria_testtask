@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -16,6 +18,8 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials)) {
             abort(401);
         }
+
+        $user = $request->user();
 
         $token = $request->user()->createToken('web')->plainTextToken;
 

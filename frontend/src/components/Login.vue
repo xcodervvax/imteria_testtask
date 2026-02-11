@@ -12,7 +12,7 @@ const { goToAccount } = useUserRouter();
 const formRef = ref<FormInstance>();
 
 const loginTitles = {
-  admin_enter: "Вход администратора",
+  admin_enter: "Вход",
   email: "Email",
   password: "Пароль",
   enterBtn: "Войти",
