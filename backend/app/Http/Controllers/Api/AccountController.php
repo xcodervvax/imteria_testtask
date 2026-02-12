@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Jobs\FetchYandexReviewsJob;
+use App\Models\Account;
 
 class AccountController extends Controller
 {
@@ -38,10 +40,16 @@ class AccountController extends Controller
 
         $user = $request->user();
 
-        $user->update([
-            'yandex_url' => $url,
-            'yandex_org_id' => $orgId
-        ]);
+        // 🔥 Создаём или обновляем Account
+        $account = Account::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'yandex_url' => $url,
+                'yandex_org_id' => $orgId
+            ]
+        );
+
+        FetchYandexReviewsJob::dispatch($account);
 
         return response()->json([
             'message' => 'Ссылка успешно сохранена',
