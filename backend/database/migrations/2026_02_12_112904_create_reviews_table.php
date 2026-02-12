@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('yandex_url')->nullable();
-            $table->string('yandex_org_id')->nullable();
-            $table->float('rating')->nullable();
-            $table->integer('reviews_count')->nullable();
+            $table->foreignId('account_id')->constrained()->cascadeOnDelete();
+            $table->string('author')->nullable();
+            $table->integer('rating')->nullable();
+            $table->text('text')->nullable();
+            $table->timestamp('review_date')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('reviews');
     }
 };
