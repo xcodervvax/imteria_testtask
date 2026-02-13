@@ -1,0 +1,25 @@
+@import '@/assets/styles/style.css';
+
+.review-item {
+    background-color: var(--color-white);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.author {
+    font-weight: 600;
+}
+
+.date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
