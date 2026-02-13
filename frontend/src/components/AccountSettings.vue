@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
-import axios from 'axios';
+import { useAccountStore } from '@/stores/account.ts';
 
 interface AccountForm {
   yandexUrl: string
@@ -12,6 +12,8 @@ const formRef = ref<FormInstance>();
 const form = ref<AccountForm>({
   yandexUrl: ''
 });
+
+const accountStore = useAccountStore();
 
 const rules: FormRules<AccountForm> = {
   yandexUrl: [
@@ -35,7 +37,6 @@ const rules: FormRules<AccountForm> = {
 };
 
 const yandexUrl = ref<string>('');
-const loading = ref<boolean>(false);
 
 const handleSubmit = async () => {
   if (!formRef.value) return;
@@ -43,16 +44,10 @@ const handleSubmit = async () => {
   await formRef.value.validate(async (valid) => {
     if (!valid) return;
 
-    loading.value = true;
-
     try {
-      await axios.post('/api/account/yandex', {
-        url: form.value.yandexUrl
-      });;
+      await accountStore.saveYandex(form.value.yandexUrl);
     } catch (e) {
       console.error(e)
-    } finally {
-      loading.value = false;
     }
   })
 };
@@ -90,7 +85,6 @@ const handleSubmit = async () => {
           class="save-button"
           type="primary"
           size="large"
-          :loading="loading"
           @click="handleSubmit"
       >
         Сохранить

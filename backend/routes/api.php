@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
