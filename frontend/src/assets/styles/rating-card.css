@@ -1,0 +1,16 @@
+@import '@/assets/styles/style.css';
+
+.rating-card {
+    width: 180px;
+
+    padding: 20px;
+
+    background-color: var(--color-white2);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.rating-number {
+    font-size: 32px;
+    font-weight: bold;
+}
