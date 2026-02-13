@@ -4,46 +4,55 @@ import { useAccountApi } from '@/composables/useAccountApi';
 import { useUiStore } from '@/stores/ui';
 
 export const useAccountStore = defineStore('account', () => {
-    const yandexUrl = ref<string | null>(null)
-    const rating = ref<number | null>(null)
-    const reviewsCount = ref<number | null>(null)
-    const error = ref<string | null>(null)
+    const yandexUrl = ref<string | null>(null);
+    const rating = ref<number | null>(null);
+    const reviewsCount = ref<number | null>(null);
+    const error = ref<string | null>(null);
 
-    const api = useAccountApi()
-    const uiStore = useUiStore()
+    const api = useAccountApi();
+    const uiStore = useUiStore();
 
     const loadAccount = async () => {
         try {
-            uiStore.startLoading()
+            uiStore.startLoading();
 
-            const { data } = await api.getAccount()
+            const { data } = await api.getAccount();
 
-            yandexUrl.value = data.yandex_url
-            rating.value = data.rating
-            reviewsCount.value = data.reviews_count
+            yandexUrl.value = data.yandex_url;
+            rating.value = data.rating;
+            reviewsCount.value = data.reviews_count;
         } catch (e: any) {
             if (e.response?.status !== 404) {
                 error.value =
-                    e.response?.data?.message || 'Ошибка загрузки аккаунта'
+                    e.response?.data?.message || 'Ошибка загрузки аккаунта';
             }
         } finally {
-            uiStore.stopLoading()
+            uiStore.stopLoading();
         }
     }
 
     const saveYandex = async (url: string) => {
         try {
-            uiStore.startLoading()
+            uiStore.startLoading();
+            const startTime = Date.now();
+            await api.saveYandex({ url });
+            // вычисляем сколько прошло времени
+            const elapsed = Date.now() - startTime;
 
-            await api.saveYandex({ url })
+            // если прошло меньше 1 секунды — ждём оставшееся время
+            if (elapsed < 1000) {
+                await new Promise((resolve) =>
+                    setTimeout(resolve, 1000 - elapsed)
+                );
+            }
 
             // после сохранения перезагружаем данные
-            await loadAccount()
+            await loadAccount();
         } catch (e: any) {
             error.value =
-                e.response?.data?.message || 'Ошибка сохранения ссылки'
+                e.response?.data?.message || 'Ошибка сохранения ссылки';
         } finally {
-            uiStore.stopLoading()
+            uiStore.stopLoading();
         }
     }
 

@@ -59,6 +59,20 @@ export const useAuthStore = defineStore('auth', () => {
         }
     };
 
+    const checkTokenExpiration = () => {
+        const expiresAt = localStorage.getItem('token_expires_at');
+
+        if (!expiresAt) return;
+
+        const timeLeft = Number(expiresAt) - Date.now();
+
+        if (timeLeft <= 0) {
+            logout();
+        } else {
+            setTimeout(logout, timeLeft);
+        }
+    };
+
     return {
         token,
         user,
@@ -67,5 +81,6 @@ export const useAuthStore = defineStore('auth', () => {
         isAuthenticated,
         login,
         logout,
+        checkTokenExpiration,
     };
 });
