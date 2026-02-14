@@ -63,4 +63,29 @@ class AccountController extends Controller
 
         return $matches[1] ?? null;
     }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+
+        $account = $user->account()->with('reviews')->first();
+
+        if (!$account) {
+            return response()->json([
+                'account' => null,
+                'reviews' => []
+            ]);
+        }
+
+        return response()->json([
+            'account' => [
+                'id' => $account->id,
+                'yandex_url' => $account->yandex_url,
+                'yandex_org_id' => $account->yandex_org_id,
+                'rating' => $account->rating,
+                'reviews_count' => $account->reviews_count,
+            ],
+            'reviews' => $account->reviews()->latest()->get()
+        ]);
+    }
 }
