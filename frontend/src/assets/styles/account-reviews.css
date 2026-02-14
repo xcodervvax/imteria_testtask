@@ -1,0 +1,7 @@
+@import '@/assets/styles/style.css';
+
+.reviews-layout {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 30px;
+}
