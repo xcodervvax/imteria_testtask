@@ -17,5 +17,5 @@ Route::middleware('auth:sanctum')->group(function () {
         '/account/yandex',
         [AccountController::class, 'saveYandex']
     );
-
+    Route::get('/account', [AccountController::class, 'show']);
 });

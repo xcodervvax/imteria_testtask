@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { useReviewsApi } from '@/modules/account/api/useReviewsApi';
+import { useReviewsApi } from '@/composables/useReviewsApi';
 import type { Review } from "@/types/review";
 
 export const useReviewsStore = defineStore('reviews', () => {

@@ -1,9 +1,24 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
 const AppHeader = defineAsyncComponent(() => import('../components/AppHeader.vue'));
 const AccountSettings = defineAsyncComponent(() => import('../components/AccountSettings.vue'));
 const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
+const AccountReviews = defineAsyncComponent(() => import('../components/AccountReviews.vue'));
+
+type Tab = 'settings' | 'reviews';
+
+const activeTab = ref<Tab>('settings');
+
+const currentComponent = computed(() => {
+  return activeTab.value === 'settings'
+      ? AccountSettings
+      : AccountReviews
+});
+
+function handleSelect(index: string) {
+  activeTab.value = index as Tab;
+}
 </script>
 
 <template>
@@ -25,7 +40,9 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
           <span class="reviews-container__text">Отзывы</span>
         </div>
 
-        <el-menu default-active="settings" class="menu left-menu">
+        <el-menu default-active="settings"
+                 class="menu left-menu"
+                 @select="handleSelect">
           <el-menu-item index="reviews">
             Отзывы
           </el-menu-item>
@@ -39,7 +56,10 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
       <!-- Правый блок -->
       <main class="content">
         <AppHeader />
-        <AccountSettings />
+
+        <Transition>
+          <component :is="currentComponent" />
+        </Transition>
       </main>
 
     </div>
