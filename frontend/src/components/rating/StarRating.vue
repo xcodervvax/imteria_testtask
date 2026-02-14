@@ -28,5 +28,5 @@ const hasHalfStar = computed(() => props.rating % 1 >= 0.5);
 </template>
 
 <style scoped>
-@import '../assets/styles/star-rating.css';
+@import '../../assets/styles/star-rating.css';
 </style>

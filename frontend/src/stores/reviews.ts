@@ -29,12 +29,17 @@ export const useReviewsStore = defineStore('reviews', () => {
         } finally {
             isLoading.value = false;
         }
-    };
+    }
+
+    function setReviews(data: Review[]) {
+        reviews.value = data;
+    }
 
     return {
         reviews,
         isLoading,
         total,
         fetchReviews,
+        setReviews,
     }
 })

@@ -23,5 +23,5 @@ defineProps<{
 </template>
 
 <style scoped>
-@import '../assets/styles/rating-card.css';
+@import '../../assets/styles/rating-card.css';
 </style>

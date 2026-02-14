@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useAccountApi } from '@/composables/useAccountApi';
 import { useUiStore } from '@/stores/ui';
+import { useReviewsStore } from '@/stores/reviews';
 
 export const useAccountStore = defineStore('account', () => {
     const yandexUrl = ref<string | null>(null);
@@ -11,6 +12,7 @@ export const useAccountStore = defineStore('account', () => {
 
     const api = useAccountApi();
     const uiStore = useUiStore();
+    const reviewsStore = useReviewsStore();
 
     const loadAccount = async () => {
         try {
@@ -18,9 +20,16 @@ export const useAccountStore = defineStore('account', () => {
 
             const { data } = await api.getAccount();
 
+            // если backend возвращает account + reviews
+            const account = data.account ?? data;
+
             yandexUrl.value = data.yandex_url;
             rating.value = data.rating;
             reviewsCount.value = data.reviews_count;
+
+            if (data.reviews) {
+                reviewsStore.setReviews(data.reviews);
+            }
         } catch (e: any) {
             if (e.response?.status !== 404) {
                 error.value =

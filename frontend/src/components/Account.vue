@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
+
+import { useAccountStore } from "@/stores/account";
+import {useAuthStore} from "@/stores/auth";
 
 const AppHeader = defineAsyncComponent(() => import('../components/AppHeader.vue'));
 const AccountSettings = defineAsyncComponent(() => import('../components/AccountSettings.vue'));
@@ -7,6 +10,7 @@ const Repair = defineAsyncComponent(() => import('../components/Repair.vue'));
 const AccountReviews = defineAsyncComponent(() => import('../components/AccountReviews.vue'));
 
 type Tab = 'settings' | 'reviews';
+const accountStore = useAccountStore();
 
 const activeTab = ref<Tab>('settings');
 
@@ -19,6 +23,10 @@ const currentComponent = computed(() => {
 function handleSelect(index: string) {
   activeTab.value = index as Tab;
 }
+
+onMounted(() => {
+  accountStore.loadAccount();
+});
 </script>
 
 <template>

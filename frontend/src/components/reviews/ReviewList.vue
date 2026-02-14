@@ -9,7 +9,12 @@ defineProps<{
 </script>
 
 <template>
-  <div>
+  <div class="review-list-container">
+    <div class="map-wrapper">
+      <img class="ynd-map" src="/images/ymap.png" alt="Яндекс лого" />
+      <span class="map-wrapper__title">Яндекс карты</span>
+    </div>
+
     <ReviewItem
         v-for="review in reviews"
         :key="review.id"
@@ -20,3 +25,7 @@ defineProps<{
     />
   </div>
 </template>
+
+<style>
+@import '../../assets/styles/review-list.css';
+</style>

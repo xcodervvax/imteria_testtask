@@ -2,12 +2,16 @@
 
 .app-header {
     height: 60px;
-    background: white;
-    border-bottom: 1px solid var(--color-gray3);
+
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    margin-bottom: 22px;
     padding: 0 24px;
+
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-gray3);
 }
 
 .logout-btn {

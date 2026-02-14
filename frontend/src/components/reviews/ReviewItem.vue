@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
-const StarRating = defineAsyncComponent(() => import('../rating/StarRating'));
+const StarRating = defineAsyncComponent(() => import('../rating/StarRating.vue'));
 
 defineProps<{
   author: string;
@@ -28,5 +28,5 @@ defineProps<{
 </template>
 
 <style scoped>
-@import '../assets/styles/review-item.css';
+@import '../../assets/styles/review-item.css';
 </style>
