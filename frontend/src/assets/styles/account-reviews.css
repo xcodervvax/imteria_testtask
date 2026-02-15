@@ -2,12 +2,12 @@
 
 .reviews-layout {
     display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 30px;
+    grid-template-columns: 1fr 264px;
+    gap: 20px;
 
     padding: 0 26px 0 32px;
 }
 
 .reviews-right {
-    margin-top: 28px;
+    margin-top: 36px;
 }

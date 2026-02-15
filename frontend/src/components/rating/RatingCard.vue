@@ -1,23 +1,29 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 const StarRating = defineAsyncComponent(() => import('./StarRating.vue'));
 
-defineProps<{
+const props = defineProps<{
   rating: number;
   reviewsCount: number;
 }>();
+
+const ratingVal = computed(() => props.rating.toFixed(1));
 </script>
 
 <template>
   <div class="rating-card">
-    <div class="rating-number">
-      {{ rating.toFixed(1) }}
+    <div class="rating-row-1">
+      <div class="rating-number">
+        {{ ratingVal }}
+      </div>
+
+      <StarRating :rating="rating" size="big" />
     </div>
 
-    <StarRating :rating="rating" />
+    <hr class="delimeter" />
 
     <div class="reviews-count">
-      Всего отзывов {{ reviewsCount }}
+      Всего отзывов: {{ reviewsCount }}
     </div>
   </div>
 </template>

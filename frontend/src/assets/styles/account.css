@@ -1,7 +1,7 @@
 @import '@/assets/styles/style.css';
 
 .account-layout {
-    width: 1200px;
+    width: 1380px;
 
     display: flex;
     flex-direction: column;
