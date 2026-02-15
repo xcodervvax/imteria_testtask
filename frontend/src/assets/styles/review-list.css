@@ -1,11 +1,11 @@
 @import '@/assets/styles/style.css';
 
 .review-list-container {
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
-    padding-left: 26px;
 }
 
 .map-wrapper {

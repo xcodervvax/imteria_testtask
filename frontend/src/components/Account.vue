@@ -2,7 +2,7 @@
 import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 
 import { useAccountStore } from "@/stores/account";
-import {useAuthStore} from "@/stores/auth";
+import { useUiStore } from '@/stores/ui';
 
 const AppHeader = defineAsyncComponent(() => import('../components/AppHeader.vue'));
 const AccountSettings = defineAsyncComponent(() => import('../components/AccountSettings.vue'));
@@ -11,6 +11,7 @@ const AccountReviews = defineAsyncComponent(() => import('../components/AccountR
 
 type Tab = 'settings' | 'reviews';
 const accountStore = useAccountStore();
+const uiStore = useUiStore();
 
 const activeTab = ref<Tab>('settings');
 
@@ -20,8 +21,19 @@ const currentComponent = computed(() => {
       : AccountReviews
 });
 
-function handleSelect(index: string) {
+async function handleSelect(index: string) {
+  uiStore.startLoading();
+  const startTime = Date.now();
   activeTab.value = index as Tab;
+  const elapsed = Date.now() - startTime;
+
+  if (elapsed < 1000) {
+    await new Promise((resolve) =>
+        setTimeout(resolve, 1000 - elapsed)
+    );
+  }
+
+  uiStore.stopLoading();
 }
 
 onMounted(() => {

@@ -23,9 +23,9 @@ export const useAccountStore = defineStore('account', () => {
             // если backend возвращает account + reviews
             const account = data.account ?? data;
 
-            yandexUrl.value = data.yandex_url;
-            rating.value = data.rating;
-            reviewsCount.value = data.reviews_count;
+            yandexUrl.value = account.yandex_url;
+            rating.value = account.rating;
+            reviewsCount.value = account.reviews_count;
 
             if (data.reviews) {
                 reviewsStore.setReviews(data.reviews);

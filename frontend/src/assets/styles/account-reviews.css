@@ -4,4 +4,10 @@
     display: grid;
     grid-template-columns: 1fr 220px;
     gap: 30px;
+
+    padding: 0 26px 0 32px;
+}
+
+.reviews-right {
+    margin-top: 28px;
 }
