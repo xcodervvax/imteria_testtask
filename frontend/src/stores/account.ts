@@ -9,6 +9,8 @@ export const useAccountStore = defineStore('account', () => {
     const rating = ref<number | null>(null);
     const reviewsCount = ref<number | null>(null);
     const error = ref<string | null>(null);
+    const organizationName = ref<string | null>(null);
+    const userPhone = ref<string | null>(null);
 
     const api = useAccountApi();
     const uiStore = useUiStore();
@@ -26,6 +28,8 @@ export const useAccountStore = defineStore('account', () => {
             yandexUrl.value = account.yandex_url;
             rating.value = account.rating;
             reviewsCount.value = account.reviews_count;
+            organizationName.value = account?.organization_name ?? null;
+            userPhone.value = data.user?.phone ?? null;
 
             if (data.reviews) {
                 reviewsStore.setReviews(data.reviews);
@@ -70,6 +74,8 @@ export const useAccountStore = defineStore('account', () => {
         rating,
         reviewsCount,
         error,
+        organizationName,
+        userPhone,
         loadAccount,
         saveYandex,
     }

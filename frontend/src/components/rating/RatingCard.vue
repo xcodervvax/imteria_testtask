@@ -7,7 +7,7 @@ const props = defineProps<{
   reviewsCount: number;
 }>();
 
-const ratingVal = computed(() => props.rating.toFixed(1));
+const ratingVal = computed(() => props.rating ? props.rating.toFixed(1) : null);
 </script>
 
 <template>
