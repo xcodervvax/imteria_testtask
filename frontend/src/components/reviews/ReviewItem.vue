@@ -9,6 +9,13 @@ defineProps<{
   text: string;
   reviewDate: string;
 }>();
+
+const truncateText = (text, maxLength) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + '...';
+  }
+  return text;
+};
 </script>
 
 <template>
@@ -32,7 +39,7 @@ defineProps<{
     </div>
 
     <div class="row-2">
-      <span class="row-2__context">{{ text }}</span>
+      <span class="row-2__context">{{ truncateText(text, 550) }}</span>
     </div>
   </div>
 </template>
