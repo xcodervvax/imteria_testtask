@@ -85,10 +85,6 @@ class AccountController extends Controller
                 'rating' => $account->rating,
                 'reviews_count' => $account->reviews_count,
             ],
-            'user' => [
-                'name' => $user->name,
-                'phone' => $user->phone,
-            ],
             'reviews' => $account->reviews()->latest()->get()
         ]);
     }
