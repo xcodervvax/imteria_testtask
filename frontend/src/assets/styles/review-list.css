@@ -1,11 +1,14 @@
 @import '@/assets/styles/style.css';
 
 .review-list-container {
+    height: 740px;
     width: 100%;
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    overflow: auto;
 }
 
 .map-wrapper {

@@ -11,6 +11,7 @@ export const useAccountStore = defineStore('account', () => {
     const error = ref<string | null>(null);
     const organizationName = ref<string | null>(null);
     const userPhone = ref<string | null>(null);
+    const activeTab = ref<'settings' | 'reviews'>('settings');
 
     const api = useAccountApi();
     const uiStore = useUiStore();
@@ -22,8 +23,8 @@ export const useAccountStore = defineStore('account', () => {
 
             const { data } = await api.getAccount();
 
-            // если backend возвращает account + reviews
-            const account = data.account ?? data;
+            const account = data.account;
+            console.log("data = ", data);
 
             yandexUrl.value = account.yandex_url;
             rating.value = account.rating;
@@ -62,12 +63,15 @@ export const useAccountStore = defineStore('account', () => {
             // после сохранения перезагружаем данные
             await loadAccount();
         } catch (e: any) {
-            error.value =
-                e.response?.data?.message || 'Ошибка сохранения ссылки';
+            throw e;
         } finally {
             uiStore.stopLoading();
         }
     }
+
+    const setActiveTab = (tab: 'settings' | 'reviews') => {
+        activeTab.value = tab;
+    };
 
     return {
         yandexUrl,
@@ -76,7 +80,9 @@ export const useAccountStore = defineStore('account', () => {
         error,
         organizationName,
         userPhone,
+        activeTab,
         loadAccount,
         saveYandex,
+        setActiveTab,
     }
 });

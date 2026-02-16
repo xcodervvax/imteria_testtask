@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import type { FormInstance, FormRules } from 'element-plus';
+import { ElNotification } from 'element-plus';
+
 import { useAccountStore } from '@/stores/account.ts';
 
 interface AccountForm {
@@ -14,6 +17,7 @@ const form = ref<AccountForm>({
 });
 
 const accountStore = useAccountStore();
+const { error } = storeToRefs(accountStore);
 
 const rules: FormRules<AccountForm> = {
   yandexUrl: [
@@ -36,8 +40,6 @@ const rules: FormRules<AccountForm> = {
   ]
 };
 
-const yandexUrl = ref<string>('');
-
 const handleSubmit = async () => {
   if (!formRef.value) return;
 
@@ -46,10 +48,24 @@ const handleSubmit = async () => {
 
     try {
       await accountStore.saveYandex(form.value.yandexUrl);
+
+      if (error == null) {
+        ElNotification({
+          title: 'Успешно',
+          message: 'Организация подключена',
+          type: 'success',
+        });
+      }
     } catch (e) {
-      console.error(e)
+      ElNotification({
+        title: 'Ошибка',
+        message:
+            e.response?.data?.message ||
+            'Не удалось подключить организацию',
+        type: 'error',
+      });
     }
-  })
+  });
 };
 </script>
 

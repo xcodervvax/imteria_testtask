@@ -50,5 +50,19 @@ services:
   redis:
     image: redis:7
 
+  queue:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: laravel_queue
+    command: php artisan queue:work --tries=3 --timeout=90
+    volumes:
+      - ./backend:/var/www/backend
+    working_dir: /var/www/backend
+    depends_on:
+      - backend
+      - postgres
+      - redis
+
 volumes:
   pgdata:

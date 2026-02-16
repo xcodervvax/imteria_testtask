@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import api from '@/lib/axios';
 import type { AccountResponse, SaveYandexPayload } from "@/types/account";
 
