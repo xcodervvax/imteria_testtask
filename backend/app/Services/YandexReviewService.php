@@ -29,6 +29,20 @@ class YandexReviewService
 
             $crawler = new Crawler($html);
 
+            $organizationPhone = null;
+
+            if ($crawler->filter('[itemprop="telephone"]')->count()) {
+                $organizationPhone = trim(
+                    $crawler->filter('[itemprop="telephone"]')->first()->text()
+                );
+            }
+
+            if (!$organizationPhone && $crawler->filter('a[href^="tel:"]')->count()) {
+                $organizationPhone = trim(
+                    $crawler->filter('a[href^="tel:"]')->first()->text()
+                );
+            }
+
             // 🔥 Название организации
             $organizationName = null;
             if ($crawler->filter('h1')->count()) {
@@ -82,7 +96,8 @@ class YandexReviewService
                 ];
             });
 
-            DB::transaction(function () use ($account, $organizationName, $rating, $reviewsCount, $reviews) {
+            DB::transaction(function () use ($account, $organizationName,
+                $organizationPhone, $rating, $reviewsCount, $reviews) {
 
                 $account->reviews()->delete();
 
@@ -92,6 +107,7 @@ class YandexReviewService
 
                 $account->update([
                     'organization_name' => $organizationName,
+                    'organization_phone' => $organizationPhone,
                     'rating' => $rating,
                     'reviews_count' => $reviewsCount ?? count($reviews),
                     'status' => 'ready',
